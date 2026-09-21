@@ -349,9 +349,49 @@ gate and graded in the same ledger.
 
 ---
 
+## The ecosystem, moving
+
+Jevmind is one take on an idea a lot of people started building at once. These are
+**their** projects running — not Jevmind — shown here with credit under their own
+licenses (details and full license texts in [assets/ecosystem](assets/ecosystem/NOTICE.md)).
+They are the best argument for why a decision layer is worth having.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<a href="https://github.com/browser-use/jev-ultrafast"><img src="assets/ecosystem/jev-ultrafast.gif" alt="jev-ultrafast searching Google Flights" width="100%"></a>
+<br><b><a href="https://github.com/browser-use/jev-ultrafast">jev-ultrafast</a></b> · Browser Use<br>
+<sub>A browser agent where Jev picks the operation and the element every step and a small model
+only types. Zürich → London on Google Flights in about seven seconds, at 1× speed. MIT.</sub>
+</td>
+<td width="50%" valign="top">
+<a href="https://github.com/RomanSlack/jev-drone"><img src="assets/ecosystem/jev-drone.gif" alt="jev-drone flying a course" width="100%"></a>
+<br><b><a href="https://github.com/RomanSlack/jev-drone">jev-drone</a></b> · the jev-drone authors<br>
+<sub>Flight control keeps the drone stable; Jev makes the tactical calls — hold, gap left, climb,
+brake — from a depth map, a few times a second. The idea behind Jevmind's <code>arena</code>. MIT; clip cut from their video.</sub>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<a href="https://github.com/lahfir/agent-desktop"><img src="assets/ecosystem/agent-desktop.gif" alt="agent-desktop driving macOS apps" width="100%"></a>
+<br><b><a href="https://github.com/lahfir/agent-desktop">agent-desktop</a></b> · lahfir<br>
+<sub>Desktop automation from the accessibility tree: which button, menu or field next. Left out of
+Jevmind on purpose — it drives a real desktop. Apache-2.0.</sub>
+</td>
+<td width="50%" valign="top">
+<a href="https://github.com/devagrawal09/jev-review"><img src="assets/ecosystem/jev-review-dashboard.png" alt="the jev-review dashboard" width="100%"></a>
+<br><b><a href="https://github.com/devagrawal09/jev-review">jev-review</a></b> · Dev Agrawal<br>
+<sub>Picks out high-risk changes before an expensive review, with a local dashboard. The idea behind
+Jevmind's <code>review</code> and its HTML page. MIT.</sub>
+</td>
+</tr>
+</table>
+
+---
+
 ## Credits, and what is not in here
 
-jevmind contains no code from the projects below. Each skill is a from-scratch take on
+Jevmind contains no code from the projects below; the four demos above are theirs, shown with credit. Each skill is a from-scratch take on
 an idea one of them showed first; the MCP wire format and System One request shape were
 read from typesafe-mcp and semdecide (both MIT).
 
