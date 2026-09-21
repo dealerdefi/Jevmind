@@ -7,7 +7,7 @@ which parts still matter to the task, and drop the rest **without rewriting
 anything that is kept**. Summaries lie by omission and by paraphrase; a kept
 block here is byte-for-byte what the tool printed.
 
-    cat build.log | jevbrain compact "why does the auth test fail"
+    cat build.log | jevmind compact "why does the auth test fail"
 
 The text is cut into blocks — paragraphs, or runs of lines — and every block is
 one Noul in a single batch: "this block is needed to do the task". Blocks the
@@ -135,12 +135,12 @@ def compact(text: str, task: str, mind: Mind, keep_threshold: float = 0.5,
     for b in bs:
         if b.i in keep_ids:
             if gap:
-                out.append(f"[… {gap} line{'s' if gap != 1 else ''} dropped by jevbrain compact …]")
+                out.append(f"[… {gap} line{'s' if gap != 1 else ''} dropped by jevmind compact …]")
                 gap = 0
             out.append(b.text)
         else:
             gap += len(b.lines)
     if gap:
-        out.append(f"[… {gap} line{'s' if gap != 1 else ''} dropped by jevbrain compact …]")
+        out.append(f"[… {gap} line{'s' if gap != 1 else ''} dropped by jevmind compact …]")
     result = "\n\n".join(out)
     return Result(kept, dropped, unsure, result, len(text), len(result), ids)

@@ -5,8 +5,8 @@ Inspired by typesafe-mcp (itsmostafa/typesafe-mcp) and jev-mcp
 (jkudish/jev-mcp): plug the brain into Claude Code, Claude Desktop, Codex — any
 MCP client — and let the agent call typed decisions instead of asking itself.
 
-    claude mcp add jevbrain -- jevbrain mcp
-    claude mcp add jevbrain -e TYPESAFE_API_KEY=… -- jevbrain mcp --brain jev
+    claude mcp add jevmind -- jevmind mcp
+    claude mcp add jevmind -e TYPESAFE_API_KEY=… -- jevmind mcp --brain jev
 
 JSON-RPC 2.0 over stdio, one message per line, no dependencies. Tools:
 
@@ -20,7 +20,7 @@ JSON-RPC 2.0 over stdio, one message per line, no dependencies. Tools:
     walk        follow a question through a markdown vault
 
 Every call made through here lands in the same ledger as the command line, so
-`jevbrain top` shows what your agent decided, too.
+`jevmind top` shows what your agent decided, too.
 """
 
 from __future__ import annotations
@@ -130,7 +130,7 @@ def handle(mind: Mind, msg: dict) -> dict | None:
         if method == "initialize":
             result: Any = {"protocolVersion": msg.get("params", {}).get("protocolVersion", PROTOCOL),
                            "capabilities": {"tools": {}},
-                           "serverInfo": {"name": "jevbrain", "version": "0.1.0"}}
+                           "serverInfo": {"name": "jevmind", "version": "0.1.0"}}
         elif method == "ping":
             result = {}
         elif method == "tools/list":
@@ -159,7 +159,7 @@ def _clean(schema: dict) -> dict:
 def serve(args, stdin=None, stdout=None) -> int:
     stdin, stdout = stdin or sys.stdin, stdout or sys.stdout
     import os
-    home = Path(args.home or os.environ.get("JEVBRAIN_HOME", "~/.jevbrain")).expanduser()
+    home = Path(args.home or os.environ.get("JEVMIND_HOME", "~/.jevmind")).expanduser()
     mind = Mind(brain=args.brain, threshold=args.gate, record=not args.no_record, home=home)
     for line in stdin:
         line = line.strip()

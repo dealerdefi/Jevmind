@@ -47,7 +47,7 @@ class Mind:
     brain: str = "local"
     threshold: float = 0.5
     record: bool = True
-    home: Path = field(default_factory=lambda: Path(os.environ.get("JEVBRAIN_HOME", "~/.jevbrain")).expanduser())
+    home: Path = field(default_factory=lambda: Path(os.environ.get("JEVMIND_HOME", "~/.jevmind")).expanduser())
     decisions: list[Decision] = field(default_factory=list)
 
     def __post_init__(self) -> None:

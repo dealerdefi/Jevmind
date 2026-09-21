@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="assets/banner.png" alt="JEVBRAIN — state, brain, gate, act, ledger" width="960">
+<img src="assets/banner.jpg" alt="Jevmind — human × tools × a brighter tomorrow" width="100%">
 
-# jevbrain
+# Jevmind
 
 **One brain, nine hands.** An agent's decisions pulled out of its prose and put in
 one place, as typed answers with a confidence, behind a gate written in code,
@@ -16,7 +16,7 @@ with one flag when a question needs more than rules.
 </div>
 
 ```
-                ┌──────────────────────────────── jevbrain ────────────────────────────────┐
+                ┌──────────────────────────────── jevmind ─────────────────────────────────┐
                 │                                                                          │
   tool output ──┤   compact   navigate   review   route   canny   curate   walk   guard    │
   a diff      ──┤      │         │         │        │       │        │       │      │      │  arena
@@ -46,18 +46,18 @@ with one flag when a question needs more than rules.
 ## Thirty seconds
 
 ```bash
-git clone https://github.com/dealerdefi/jevbrain && cd jevbrain
+git clone https://github.com/dealerdefi/Jevmind && cd Jevmind
 pip install -e .
 
-jevbrain demo      # all nine skills on the bundled samples, then the dashboard
-jevbrain top       # the dashboard, any time
+jevmind demo      # all nine skills on the bundled samples, then the dashboard
+jevmind top       # the dashboard, any time
 ```
 
 <div align="center">
-<img src="assets/terminal-top.png" alt="jevbrain top" width="860">
+<img src="assets/terminal-top.png" alt="jevmind top" width="860">
 </div>
 
-<div align="center"><sub>A real capture of <code>jevbrain top</code> after <code>jevbrain demo</code>, taken by
+<div align="center"><sub>A real capture of <code>jevmind top</code> after <code>jevmind demo</code>, taken by
 <code>scripts/terminal.py</code> in a pseudo terminal. 2,911 decisions from nine skills, every one of them a
 line in the ledger.</sub></div>
 
@@ -76,7 +76,7 @@ different kinds of work, and each should go to the thing built for it.
 
 Most agents make every decision by asking a large model to write a paragraph and
 then parsing it. That is slow, it costs a call per fork, and the answer carries no
-number that says how sure it was. jevbrain turns each fork into one of three shapes,
+number that says how sure it was. jevmind turns each fork into one of three shapes,
 the same three [TypeSafe's Jev](https://typesafe.ai) answers natively:
 
 ```
@@ -104,7 +104,7 @@ outcome is known, grades it when it is, and learns from the grade.**
 
 The Jev wire format here is the one [typesafe-mcp](https://github.com/itsmostafa/typesafe-mcp)
 and [semdecide](https://github.com/sharziki/semdecide) speak, read from their source.
-jevbrain's adapter is tested against a stand-in transport, **not against the live
+jevmind's adapter is tested against a stand-in transport, **not against the live
 service** — see [docs/JEV.md](docs/JEV.md) for exactly what it sends and what it
 accepts. An answer it cannot read (an option that was not offered, a label off the
 scale, a missing confidence) becomes a confidence-0 answer that every gate refuses.
@@ -125,16 +125,16 @@ because dropping something you needed costs more than reading something you did 
 
 ### The ledger, and learning from it
 
-`~/.jevbrain/ledger.jsonl` — append-only, each line hashed over the one before. A
+`~/.jevmind/ledger.jsonl` — append-only, each line hashed over the one before. A
 decision line holds what the brain was shown (as a fingerprint), what it answered,
 how sure it was, what the gate did, the latency and the cost. An **outcome** is a
 second line that points at it; it never edits it. Change one confidence after the
-fact and `jevbrain doctor` names the line.
+fact and `jevmind doctor` names the line.
 
 ```bash
-jevbrain label canny-00007-3fa2b1 supported no   # the "done" was not done
-jevbrain grade                                   # Brier score and calibration, per skill
-jevbrain learn                                   # Platt scaling, per skill and question
+jevmind label canny-00007-3fa2b1 supported no   # the "done" was not done
+jevmind grade                                   # Brier score and calibration, per skill
+jevmind learn                                   # Platt scaling, per skill and question
 ```
 
 `learn` fits on the **older 70%** of labelled answers and judges on the **newer
@@ -144,7 +144,7 @@ was kept from the next call on, and records the raw answer beside the calibrated
 so the next `learn` replaces the calibration instead of stacking on it.
 
 <div align="center">
-<img src="assets/terminal-learn.png" alt="jevbrain learn" width="860">
+<img src="assets/terminal-learn.png" alt="jevmind learn" width="860">
 </div>
 
 <sub>On the arena, the `danger` reflex says 0.30 whenever a hazard is near — and a
@@ -163,7 +163,7 @@ every decision to the same ledger, and can be pointed at Jev with a flag.
 ### `compact` — context garbage collection
 
 ```bash
-pytest 2>&1 | jevbrain compact "why does the refresh token test fail"
+pytest 2>&1 | jevmind compact "why does the refresh token test fail"
 ```
 
 Cuts tool output into blocks and asks one Noul per block, all in one batch: *this
@@ -177,7 +177,7 @@ log line that explains it, and the summary line stay. *After
 ### `navigate` — walk a repository to the files an issue is about
 
 ```bash
-jevbrain navigate "a signal is settled from the wrong trade after the window" --repo .
+jevmind navigate "a signal is settled from the wrong trade after the window" --repo .
 ```
 
 One Choice per directory, over its children, following the best three branches down.
@@ -185,12 +185,12 @@ The local brain scores every option by the best BM25 match *beneath* it across t
 whole repository, and weights tests and docs below the code they describe. *After
 [Blink](https://github.com/ellipsis-dev/blink).*
 
-<div align="center"><img src="assets/terminal-navigate.png" alt="jevbrain navigate" width="860"></div>
+<div align="center"><img src="assets/terminal-navigate.png" alt="jevmind navigate" width="860"></div>
 
 ### `review` — which hunks of a diff need a human
 
 ```bash
-jevbrain review --repo . --base main --html review.html
+jevmind review --repo . --base main --html review.html
 ```
 
 Per hunk, one batch: `risk` (Score: low · medium · high · critical) and `route`
@@ -200,12 +200,12 @@ removed checks, removed error handling, migrations — and writes a local HTML
 dashboard sorted by risk. Exit code 2 when anything needs a human, for CI. *After
 [jev-review](https://github.com/devagrawal09/jev-review).*
 
-<div align="center"><img src="assets/terminal-review.png" alt="jevbrain review" width="860"></div>
+<div align="center"><img src="assets/terminal-review.png" alt="jevmind review" width="860"></div>
 
 ### `route` — how much model a task deserves
 
 ```bash
-jevbrain route --map fast=haiku,standard=sonnet,frontier=opus "rename getUser across the web app"
+jevmind route --map fast=haiku,standard=sonnet,frontier=opus "rename getUser across the web app"
 ```
 
 `difficulty` (Score, trivial → research), `tier` (Choice) and `effort` (Choice). Unsure
@@ -216,7 +216,7 @@ over-powering an easy one costs cents. `--json` for scripts. *After
 ### `canny` — should you believe an agent that says it is done
 
 ```bash
-jevbrain canny --claim "fixed, all tests pass" --tests out.txt --diff change.diff
+jevmind canny --claim "fixed, all tests pass" --tests out.txt --diff change.diff
 ```
 
 One Noul — *the completion claim is supported by the evidence* — and the findings that
@@ -225,12 +225,12 @@ moved it: tests that failed, no tests that ran, a stub or TODO added, a `skip` o
 contradicts. TRUST · DOUBT · REJECT, exit 0 · 1 · 2. *After
 [Canny](https://github.com/qkal/Canny).*
 
-<div align="center"><img src="assets/terminal-canny.png" alt="jevbrain canny" width="860"></div>
+<div align="center"><img src="assets/terminal-canny.png" alt="jevmind canny" width="860"></div>
 
 ### `curate` — which records deserve to be trained on
 
 ```bash
-jevbrain curate data.jsonl --out kept.jsonl --dropped dropped.jsonl
+jevmind curate data.jsonl --out kept.jsonl --dropped dropped.jsonl
 ```
 
 `quality` (Score), `risky` (Noul: personal data, a credential) and `keep` (Choice: keep
@@ -243,7 +243,7 @@ mid-sentence goes to review; the eight good records are in. *After [jev-curate](
 ### `walk` — follow a question through a linked vault
 
 ```bash
-jevbrain walk "how do refresh tokens rotate" --vault ~/notes --start index
+jevmind walk "how do refresh tokens rotate" --vault ~/notes --start index
 ```
 
 Any folder of markdown with `[[wikilinks]]` — an Obsidian vault, a Zettelkasten, a
@@ -251,12 +251,12 @@ docs site. At each page: a Choice over its links (plus `stop`) and a Noul — *t
 is on this page*. Never revisits, never invents a link, stops when it is sure. *After
 [neo4jev](https://github.com/jexp/neo4jev).*
 
-<div align="center"><img src="assets/terminal-walk.png" alt="jevbrain walk" width="860"></div>
+<div align="center"><img src="assets/terminal-walk.png" alt="jevmind walk" width="860"></div>
 
 ### `guard` — should this command run
 
 ```bash
-jevbrain guard "git push --force origin main"
+jevmind guard "git push --force origin main"
 ```
 
 Three Nouls (destructive · external · leaks secrets), a Score (consequence) and a
@@ -266,15 +266,15 @@ what was asked for. Unsure is never allow. *After
 [semdecide](https://github.com/sharziki/semdecide)'s reflex guard and
 [jev-mcp](https://github.com/jkudish/jev-mcp)'s screening tools.*
 
-<div align="center"><img src="assets/terminal-guard.png" alt="jevbrain guard" width="860"></div>
+<div align="center"><img src="assets/terminal-guard.png" alt="jevmind guard" width="860"></div>
 
 ### `arena` — a control loop you can watch
 
 ```bash
-jevbrain arena --watch
+jevmind arena --watch
 ```
 
-<div align="center"><img src="assets/arena.gif" alt="jevbrain arena: a runner crossing pits, pipes and walkers, one brain decision per tick" width="860"></div>
+<div align="center"><img src="assets/arena.gif" alt="jevmind arena: a runner crossing pits, pipes and walkers, one brain decision per tick" width="860"></div>
 
 A side-scroller — pits, pipes, walkers. No pixels: every tick the brain reads
 structured state (what is ahead, how far, how big) and answers `move` (run · jump ·
@@ -291,10 +291,10 @@ and to watch `learn` recalibrate a brain on its own mistakes. 12 runs from seed 
 ### And the primitives, for shells and pipelines
 
 ```bash
-jevbrain ask noul "Does this convey urgency?" --state "payouts failing for 3 days"
-jevbrain ask choice "Which team?" -o billing="payments, refunds" -o infra="outages" --state -
-jevbrain ask score "How severe?" -l minor -l major -l critical --state incident.txt
-grep -h ERROR *.log | jevbrain filter "a database timeout" --scores
+jevmind ask noul "Does this convey urgency?" --state "payouts failing for 3 days"
+jevmind ask choice "Which team?" -o billing="payments, refunds" -o infra="outages" --state -
+jevmind ask score "How severe?" -l minor -l major -l critical --state incident.txt
+grep -h ERROR *.log | jevmind filter "a database timeout" --scores
 ```
 
 *After [SemDecide](https://github.com/sharziki/semdecide).* These are where the local
@@ -311,8 +311,8 @@ Codex, anything that speaks MCP. JSON-RPC over stdio, no dependencies. *After
 [jev-mcp](https://github.com/jkudish/jev-mcp).*
 
 ```bash
-claude mcp add jevbrain -- jevbrain mcp
-claude mcp add jevbrain -e TYPESAFE_API_KEY=… -- jevbrain mcp --brain jev
+claude mcp add jevmind -- jevmind mcp
+claude mcp add jevmind -e TYPESAFE_API_KEY=… -- jevmind mcp --brain jev
 ```
 
 **A guard in front of every shell command** Claude Code runs — `.claude/settings.json`:
@@ -321,14 +321,14 @@ claude mcp add jevbrain -e TYPESAFE_API_KEY=… -- jevbrain mcp --brain jev
 {
   "hooks": {
     "PreToolUse": [
-      { "matcher": "Bash", "hooks": [{ "type": "command", "command": "jevbrain guard --hook" }] }
+      { "matcher": "Bash", "hooks": [{ "type": "command", "command": "jevmind guard --hook" }] }
     ]
   }
 }
 ```
 
 It answers in Claude Code's own `permissionDecision` format — `allow`, `ask` or `deny`
-with the reasons — and every verdict lands in the ledger, so `jevbrain top` shows what
+with the reasons — and every verdict lands in the ledger, so `jevmind top` shows what
 your agent tried to run.
 
 ---
@@ -351,7 +351,7 @@ gate and graded in the same ledger.
 
 ## Credits, and what is not in here
 
-jevbrain contains no code from the projects below. Each skill is a from-scratch take on
+jevmind contains no code from the projects below. Each skill is a from-scratch take on
 an idea one of them showed first; the MCP wire format and System One request shape were
 read from typesafe-mcp and semdecide (both MIT).
 
@@ -365,7 +365,7 @@ read from typesafe-mcp and semdecide (both MIT).
 | [jev-curate](https://github.com/AkashPriyadarshii/jev-curate) | screen training data | `curate` |
 | [neo4jev](https://github.com/jexp/neo4jev) | walk a graph edge by edge | `walk` |
 | [SemDecide](https://github.com/sharziki/semdecide) · [jev-mcp](https://github.com/jkudish/jev-mcp) | shell primitives, action guards, screening | `ask` · `filter` · `guard` |
-| [typesafe-mcp](https://github.com/itsmostafa/typesafe-mcp) | typed decisions over MCP | `jevbrain mcp` |
+| [typesafe-mcp](https://github.com/itsmostafa/typesafe-mcp) | typed decisions over MCP | `jevmind mcp` |
 | [typesafe-mario](https://github.com/fhshaik/typesafe-mario) · [jev-drone](https://github.com/RomanSlack/jev-drone) · [OneVOneJev](https://github.com/emrickgarrett/OneVOneJev) | decide from structured state, tick by tick | `arena` |
 
 **Deliberately left out:** [jev-ultrafast](https://github.com/browser-use/jev-ultrafast)
@@ -375,7 +375,7 @@ is a UI framework, not a decision. [jev-trader](https://github.com/jarrodwatts/j
 and [Prism](https://github.com/irfndi/prism-liquidity-agent) place or shape real orders;
 a tool that can move money does not belong in a toolkit anyone can `pip install` and
 point at an agent. [killmyidea](https://github.com/monteduro/killmyidea) scores startup
-ideas, which is an open question with no reflex worth writing — `jevbrain ask score
+ideas, which is an open question with no reflex worth writing — `jevmind ask score
 --brain jev` does it honestly.
 
 ---
@@ -401,7 +401,7 @@ that invents a link.
 
 ---
 
-*TypeSafe, Jev and every project named here belong to their authors. jevbrain is an
+*TypeSafe, Jev and every project named here belong to their authors. Jevmind is an
 independent project and is not affiliated with or endorsed by TypeSafe AI.*
 
 <div align="center">

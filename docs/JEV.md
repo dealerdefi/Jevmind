@@ -1,13 +1,13 @@
 # Talking to Jev
 
-`src/jevbrain/brain.py` → `JevBrain`. Standard library only (`urllib`).
+`src/jevmind/brain.py` → `JevBrain`. Standard library only (`urllib`).
 
 ## Where the format comes from
 
 TypeSafe's public docs were not reachable from where this was written. The request
 and response shapes below were read from the source of two MIT-licensed clients that
 talk to the live service — [typesafe-mcp](https://github.com/itsmostafa/typesafe-mcp)
-(Go) and [semdecide](https://github.com/sharziki/semdecide) (Python) — and jevbrain's
+(Go) and [semdecide](https://github.com/sharziki/semdecide) (Python) — and jevmind's
 adapter is tested against a stand-in transport that answers in that shape. **It has not
 been run against the live API from this repository.** If TypeSafe changes a field name,
 `parse_answers()` is the one function to change, and `tests/test_core.py` shows every
@@ -34,7 +34,7 @@ Content-Type: application/json
 ```
 
 Every question for one state goes in **one** request. That is how Jev is priced and
-how jevbrain always calls it — `compact` sends forty blocks as forty Nouls in one call,
+how jevmind always calls it — `compact` sends forty blocks as forty Nouls in one call,
 not forty calls.
 
 ## Response
@@ -66,18 +66,18 @@ not forty calls.
 A confidence-0 answer is refused by every gate, so a malformed response turns into an
 escalation, never into an action.
 
-A Noul carries no confidence on the wire. jevbrain derives one, `|2p − 1|`, so the gate
-can treat every answer alike. That is jevbrain's convention, not TypeSafe's.
+A Noul carries no confidence on the wire. jevmind derives one, `|2p − 1|`, so the gate
+can treat every answer alike. That is jevmind's convention, not TypeSafe's.
 
 ## Cost
 
-TypeSafe's published price is $0.042 per million input tokens, output free. jevbrain
+TypeSafe's published price is $0.042 per million input tokens, output free. jevmind
 uses `usage.input_tokens` when the response has it and a four-characters-a-token
-estimate otherwise, and marks the estimate as one everywhere it is shown. `jevbrain top`
+estimate otherwise, and marks the estimate as one everywhere it is shown. `jevmind top`
 also shows what the local brain's decisions *would* have cost on Jev.
 
 ## Tapes
 
-With `--brain jev`, every thought is appended to `~/.jevbrain/tape.jsonl`, keyed by a
+With `--brain jev`, every thought is appended to `~/.jevmind/tape.jsonl`, keyed by a
 SHA-256 of the exact state and questions. `--brain replay` answers from it and refuses
 anything that is not on it.

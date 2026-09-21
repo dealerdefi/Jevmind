@@ -10,7 +10,7 @@ batch, and code keeps or drops it:
                        should not be learned
     keep       Choice  keep · drop · review
 
-    jevbrain curate data.jsonl --out kept.jsonl --dropped dropped.jsonl
+    jevmind curate data.jsonl --out kept.jsonl --dropped dropped.jsonl
 
 Near-duplicates are caught before the brain is asked (a shingle fingerprint),
 because a record that is 95% the same as one already kept teaches nothing new

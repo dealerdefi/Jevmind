@@ -6,7 +6,7 @@ into a context window, walk it. At each directory the brain gets one Choice —
 which child is most likely to hold what this issue is about — and the walk
 follows the best three branches down until it reaches files.
 
-    jevbrain navigate "refresh tokens can be reused" --repo .
+    jevmind navigate "refresh tokens can be reused" --repo .
 
 Each option is described by evidence, not by its name alone: a directory by the
 names inside it, a file by its definitions and first lines. The brain never

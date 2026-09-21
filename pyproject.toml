@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "jevbrain"
+name = "jevmind"
 version = "0.1.0"
 description = "One brain, many hands: typed decisions (Choice, Score, Noul), a gate in code, and every answer on an append-only ledger — offline, or on TypeSafe's Jev."
 readme = "README.md"
@@ -20,14 +20,14 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/dealerdefi/jevbrain"
-Source = "https://github.com/dealerdefi/jevbrain"
+Homepage = "https://github.com/dealerdefi/Jevmind"
+Source = "https://github.com/dealerdefi/Jevmind"
 
 [project.scripts]
-jevbrain = "jevbrain.cli:main"
+jevmind = "jevmind.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-jevbrain = ["py.typed", "samples/**/*", "samples/*"]
+jevmind = ["py.typed", "samples/**/*", "samples/*"]

@@ -8,8 +8,8 @@ spend their attention. Every hunk gets two questions in one batch:
     risk     Score   low · medium · high · critical
     route    Choice  skip · model (a bigger model reviews it) · human
 
-    git diff main | jevbrain review
-    jevbrain review --repo . --base main --html review.html
+    git diff main | jevmind review
+    jevmind review --repo . --base main --html review.html
 
 The local brain reads the hunk the way a careful reviewer skims: what the file
 is (a migration, CI, auth, a lockfile), what the added lines touch (secrets,
@@ -204,7 +204,7 @@ def git_diff(repo: Path, base: str | None) -> str:
     return r.stdout
 
 
-def to_html(verdicts: list[Verdict], title: str = "jevbrain review") -> str:
+def to_html(verdicts: list[Verdict], title: str = "jevmind review") -> str:
     """A local dashboard: one static page, no server, sorted by risk."""
     rows = []
     for v in sorted(verdicts, key=lambda v: -v.risk):
@@ -226,5 +226,5 @@ summary{{padding:10px 14px;cursor:pointer;display:flex;gap:14px;align-items:cent
 .route.model{{color:#ff8cc6;border-color:#ff8cc6}} code{{color:#fff}} .why{{color:#8a6a7c;margin-left:auto}}
 pre{{margin:0;padding:12px 16px;border-top:1px solid #1a0c17;color:#d9bccb;overflow:auto;max-height:360px}}
 .id{{color:#5e4656;padding:0 16px 10px;font-size:11px}}</style>
-<h1>REVIEW</h1><div class="sub">{len(verdicts)} hunks · human {counts['human']} · model {counts['model']} · skip {counts['skip']} · every row is a decision in the jevbrain ledger</div>
+<h1>REVIEW</h1><div class="sub">{len(verdicts)} hunks · human {counts['human']} · model {counts['model']} · skip {counts['skip']} · every row is a decision in the jevmind ledger</div>
 {''.join(rows)}"""

@@ -8,8 +8,8 @@ decides what the body does next. Low-level physics stays in code, the way a
 drone's flight controller keeps it level while the model only says climb or
 brake.
 
-    jevbrain arena --watch             # live, in the terminal
-    jevbrain arena --seed 7 --runs 20  # a benchmark
+    jevmind arena --watch             # live, in the terminal
+    jevmind arena --seed 7 --runs 20  # a benchmark
 
 A side-scroller: pits, walkers, pipes. Every tick is one batch:
 
@@ -18,7 +18,7 @@ A side-scroller: pits, walkers, pipes. Every tick is one batch:
 
 `danger` has a ground truth — code simulates "just run" two ticks ahead — so
 every answer is labelled the moment the tick is over. That makes arena the
-fastest way to fill the ledger with graded decisions, and to watch `jevbrain
+fastest way to fill the ledger with graded decisions, and to watch `jevmind
 learn` recalibrate a brain on its own mistakes.
 """
 

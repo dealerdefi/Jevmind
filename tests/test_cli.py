@@ -8,8 +8,8 @@ import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 
-from jevbrain.cli import main
-from jevbrain.ledger import Ledger, verify
+from jevmind.cli import main
+from jevmind.ledger import Ledger, verify
 
 
 def run(*argv: str) -> tuple[int, str]:

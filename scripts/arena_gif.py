@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Record assets/arena.gif: one real run of `jevbrain arena`, frame by frame.
+Record assets/arena.gif: one real run of `jevmind arena`, frame by frame.
 
 Every frame is drawn from the same `render()` the terminal uses, and the status
 line is the brain's actual answer on that tick. Development-only: needs Pillow
-and ffmpeg. jevbrain itself needs neither.
+and ffmpeg. jevmind itself needs neither.
 """
 
 from __future__ import annotations
@@ -19,8 +19,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from PIL import Image, ImageDraw, ImageFont  # noqa: E402
 
-from jevbrain.mind import Mind  # noqa: E402
-from jevbrain.skills import arena  # noqa: E402
+from jevmind.mind import Mind  # noqa: E402
+from jevmind.skills import arena  # noqa: E402
 
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf"

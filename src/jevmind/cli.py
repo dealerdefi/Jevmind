@@ -1,28 +1,28 @@
 """
-jevbrain — one brain, many hands.
+jevmind — one brain, many hands.
 
-    jevbrain demo                          every skill on the bundled samples, then the dashboard
-    jevbrain top                           the dashboard: every decision, every skill
+    jevmind demo                          every skill on the bundled samples, then the dashboard
+    jevmind top                           the dashboard: every decision, every skill
 
   the primitives (SemDecide-style, for shells and pipelines)
-    jevbrain ask noul "is this urgent?" --state "payouts failing 3 days"
-    jevbrain ask choice "which team?" -o billing="payments" -o infra="outages" --state -
-    jevbrain ask score "how severe?" -l minor -l major -l critical --state -
-    jevbrain filter "mentions a timeout" < app.log
+    jevmind ask noul "is this urgent?" --state "payouts failing 3 days"
+    jevmind ask choice "which team?" -o billing="payments" -o infra="outages" --state -
+    jevmind ask score "how severe?" -l minor -l major -l critical --state -
+    jevmind filter "mentions a timeout" < app.log
 
   the skills
-    jevbrain compact "why does auth fail" < build.log
-    jevbrain navigate "refresh tokens can be reused" --repo .
-    jevbrain review --repo . --base main [--html review.html]
-    jevbrain route "rename getUser across the web app"
-    jevbrain canny --claim "done, all tests pass" --tests out.txt --diff change.diff
-    jevbrain curate data.jsonl --out kept.jsonl
-    jevbrain walk "how do tokens rotate" --vault ~/notes --start index
-    jevbrain guard "rm -rf ./build"          ·   jevbrain guard --hook   (Claude Code)
-    jevbrain arena --watch
+    jevmind compact "why does auth fail" < build.log
+    jevmind navigate "refresh tokens can be reused" --repo .
+    jevmind review --repo . --base main [--html review.html]
+    jevmind route "rename getUser across the web app"
+    jevmind canny --claim "done, all tests pass" --tests out.txt --diff change.diff
+    jevmind curate data.jsonl --out kept.jsonl
+    jevmind walk "how do tokens rotate" --vault ~/notes --start index
+    jevmind guard "rm -rf ./build"          ·   jevmind guard --hook   (Claude Code)
+    jevmind arena --watch
 
   the record
-    jevbrain grade · learn · label ID KEY yes|no · doctor · mcp
+    jevmind grade · learn · label ID KEY yes|no · doctor · mcp
 
 Every command takes --brain local|jev|replay. local is the default: offline,
 free, deterministic. jev needs TYPESAFE_API_KEY.
@@ -57,7 +57,7 @@ def samples_dir() -> Path:
 
 
 def home_of(args) -> Path:
-    return Path(args.home or os.environ.get("JEVBRAIN_HOME", "~/.jevbrain")).expanduser()
+    return Path(args.home or os.environ.get("JEVMIND_HOME", "~/.jevmind")).expanduser()
 
 
 def mind_of(args, threshold: float | None = None) -> Mind:
@@ -441,7 +441,7 @@ def cmd_arena(args) -> int:
     dead = [r for r in runs if not r.won]
     if dead:
         rows.append(ui.kv("fell", ui.c(", ".join(f"seed {r.seed} at x {r.died_at}" for r in dead[:6]), "rose"), "", 11))
-    for line in ui.frame(rows, W, foot="every `danger` answer is labelled by simulation · jevbrain grade"):
+    for line in ui.frame(rows, W, foot="every `danger` answer is labelled by simulation · jevmind grade"):
         print(line)
     footer(m)
     return 0
@@ -461,7 +461,7 @@ def cmd_top(args) -> int:
     for line in ui.head("the brain", f"{total:,} decisions · {len(by)} skills · ledger {'intact' if v.ok else 'BROKEN'}", W):
         print(line)
     if not by:
-        print(ui.c("  nothing decided yet. jevbrain demo", "mute"))
+        print(ui.c("  nothing decided yet. jevmind demo", "mute"))
         return 0
     spec = [(10, "<"), (8, ">"), (18, "<"), (8, ">"), (8, ">"), (9, ">"), (8, ">"), (10, ">")]
     rows = [ui.columns([[ui.c(x, "mute") for x in ("skill", "made", "act · hold · esc", "p50 ms",
@@ -509,7 +509,7 @@ def cmd_grade(args) -> int:
     for line in ui.head("grade", f"{sum(len(s.graded) for s in graded.values()):,} labelled answers", W):
         print(line)
     if not graded:
-        print(ui.c("  nothing labelled yet. jevbrain arena labels itself; jevbrain label ID KEY yes|no for the rest", "mute"))
+        print(ui.c("  nothing labelled yet. jevmind arena labels itself; jevmind label ID KEY yes|no for the rest", "mute"))
         return 0
     for s in graded.values():
         rows = [ui.kv("brier", ui.c(f"{s.brier:.4f}", "bright", bold=True) + ui.c("   0 perfect · 0.25 a coin", "mute"), "", 9),
@@ -583,7 +583,7 @@ def cmd_doctor(args) -> int:
     tape = home / "tape.jsonl"
     (ok if tape.exists() else warn)("replay", f"{sum(1 for _ in tape.open()) if tape.exists() else 0} recorded thoughts")
     cal = Calibration.load(home / "calibration.json")
-    (ok if cal.params else warn)("calibration", f"{len(cal.params)} learned" if cal.params else "none yet · jevbrain learn")
+    (ok if cal.params else warn)("calibration", f"{len(cal.params)} learned" if cal.params else "none yet · jevmind learn")
     rows += ["", ui.c("LEDGER", "bright", bold=True)]
     v = verify(home / "ledger.jsonl")
     if v.ok:
@@ -611,7 +611,7 @@ def cmd_demo(args) -> int:
     """Every skill, on the bundled samples, into a fresh home — then the dashboard."""
     s = samples_dir()
     if not args.home:
-        args.home = tempfile.mkdtemp(prefix="jevbrain-demo-")
+        args.home = tempfile.mkdtemp(prefix="jevmind-demo-")
     banner(args)
     print(ui.c(f"  home {args.home}", "mute"))
     args.no_banner = True
@@ -661,16 +661,16 @@ def _quiet(fn, args, **kw):
 
 
 def build_parser() -> argparse.ArgumentParser:
-    ap = argparse.ArgumentParser(prog="jevbrain", description="One brain, many hands.",
-                                 epilog="jevbrain demo · jevbrain top · jevbrain doctor",
+    ap = argparse.ArgumentParser(prog="jevmind", description="One brain, many hands.",
+                                 epilog="jevmind demo · jevmind top · jevmind doctor",
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--version", action="version", version=f"jevbrain {VERSION}")
+    ap.add_argument("--version", action="version", version=f"jevmind {VERSION}")
 
     common = argparse.ArgumentParser(add_help=False)
-    common.add_argument("--brain", default=os.environ.get("JEVBRAIN_BRAIN", "local"),
+    common.add_argument("--brain", default=os.environ.get("JEVMIND_BRAIN", "local"),
                         choices=["local", "jev", "replay"], help="who decides")
     common.add_argument("--gate", type=float, default=0.5, help="confidence below which code escalates")
-    common.add_argument("--home", help="where the ledger lives (default ~/.jevbrain or $JEVBRAIN_HOME)")
+    common.add_argument("--home", help="where the ledger lives (default ~/.jevmind or $JEVMIND_HOME)")
     common.add_argument("--no-record", action="store_true", help="do not write to the ledger")
     common.add_argument("--no-banner", action="store_true")
     common.add_argument("--json", action="store_true", help="machine-readable output")

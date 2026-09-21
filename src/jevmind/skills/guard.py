@@ -12,8 +12,8 @@ decide whether it runs.
     consequence     Score   low · recoverable · severe
     route           Choice  allow · ask · block
 
-    jevbrain guard "rm -rf ./build"
-    jevbrain guard --hook          # as a Claude Code PreToolUse hook, JSON on stdin
+    jevmind guard "rm -rf ./build"
+    jevmind guard --hook          # as a Claude Code PreToolUse hook, JSON on stdin
 
 As a hook it answers in Claude Code's own format: `allow` runs silently, `ask`
 puts the command in front of you, `block` refuses with the reason. An answer the
@@ -159,4 +159,4 @@ def hook_response(route: str, info: dict) -> dict:
     why = "; ".join(info["reasons"]) or "no risk found"
     return {"hookSpecificOutput": {
         "hookEventName": "PreToolUse", "permissionDecision": decision,
-        "permissionDecisionReason": f"jevbrain guard: {route} — {why} (decision {info['id']})"}}
+        "permissionDecisionReason": f"jevmind guard: {route} — {why} (decision {info['id']})"}}

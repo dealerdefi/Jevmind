@@ -6,7 +6,7 @@ the same confidence whether or not they ran them. This reads the evidence the
 agent left behind — test output, the diff, the claim itself — and asks one
 Noul: *the completion claim is supported by this evidence*.
 
-    jevbrain canny --claim "fixed, all tests pass" --tests out.txt --diff change.diff
+    jevmind canny --claim "fixed, all tests pass" --tests out.txt --diff change.diff
 
 It then names what it found, because a verdict with no reasons is just another
 claim:

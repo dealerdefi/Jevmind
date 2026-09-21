@@ -16,12 +16,12 @@ import unittest
 import urllib.error
 from pathlib import Path
 
-from jevbrain.brain import (BrainError, Calibration, JevBrain, LocalBrain, ReplayBrain, Recorder, Tape,
+from jevmind.brain import (BrainError, Calibration, JevBrain, LocalBrain, ReplayBrain, Recorder, Tape,
                             fingerprint, parse_answers)
-from jevbrain.grade import brier, fit_platt, learn, stats
-from jevbrain.ledger import Ledger, verify
-from jevbrain.mind import ACT, ESCALATE, HOLD, Mind, gate
-from jevbrain.questions import Answer, Choice, Noul, Score, choice_answer, noul_answer, score_answer
+from jevmind.grade import brier, fit_platt, learn, stats
+from jevmind.ledger import Ledger, verify
+from jevmind.mind import ACT, ESCALATE, HOLD, Mind, gate
+from jevmind.questions import Answer, Choice, Noul, Score, choice_answer, noul_answer, score_answer
 
 Q = {"urgent": Noul("Does this convey urgency?"),
      "team": Choice("Which team?", {"billing": "payments", "tech": "outages"}),
@@ -220,7 +220,7 @@ class Learning(unittest.TestCase):
         # Says 0.6 when it is right 95% of the time, 0.4 when it is right 5%.
         data = [(0.6, i % 20 != 0) for i in range(200)] + [(0.4, i % 20 == 0) for i in range(200)]
         a, b = fit_platt(data)
-        from jevbrain.questions import logit, sigmoid
+        from jevmind.questions import logit, sigmoid
         self.assertGreater(sigmoid(a * logit(0.6) + b), 0.85)
         self.assertLess(sigmoid(a * logit(0.4) + b), 0.15)
 

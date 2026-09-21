@@ -14,10 +14,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from jevbrain.mind import Mind
-from jevbrain.skills import arena, canny, compact, curate, guard, navigate, review, route, walk
+from jevmind.mind import Mind
+from jevmind.skills import arena, canny, compact, curate, guard, navigate, review, route, walk
 
-S = Path(__file__).resolve().parents[1] / "src" / "jevbrain" / "samples"
+S = Path(__file__).resolve().parents[1] / "src" / "jevmind" / "samples"
 
 
 def mind() -> Mind:
@@ -45,7 +45,7 @@ class Compact(unittest.TestCase):
         self.assertNotIn("Using cached", self.r.text)
 
     def test_it_says_where_it_cut(self):
-        self.assertIn("dropped by jevbrain compact", self.r.text)
+        self.assertIn("dropped by jevmind compact", self.r.text)
 
     def test_one_call_per_batch_not_per_block(self):
         m = mind()
@@ -220,7 +220,7 @@ class Mcp(unittest.TestCase):
     def test_initialise_list_and_call(self):
         import argparse
         import io
-        from jevbrain import mcp
+        from jevmind import mcp
         msgs = [
             {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18"}},
             {"jsonrpc": "2.0", "method": "notifications/initialized"},

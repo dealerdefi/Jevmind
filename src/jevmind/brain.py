@@ -4,7 +4,7 @@ answers. Three of them share one interface.
 
     local    offline, free, deterministic. Reflexes written for each skill, a
              lexical engine for everything else, and a calibration layer
-             fitted from its own graded history (`jevbrain learn`).
+             fitted from its own graded history (`jevmind learn`).
     jev      TypeSafe's Jev over HTTP: POST /v1/systemone, Bearer key,
              {state, model, questions} → {answers, usage, model}. The wire
              format is the one typesafe-mcp and semdecide speak.
@@ -285,7 +285,7 @@ class JevBrain:
                              ensure_ascii=False, separators=(",", ":"), default=str).encode("utf-8")
         req = urllib.request.Request(self.url, data=payload, method="POST", headers={
             "Authorization": f"Bearer {self.key}", "Content-Type": "application/json",
-            "User-Agent": "jevbrain/0.1"})
+            "User-Agent": "jevmind/0.1"})
         t0 = time.perf_counter()
         for attempt in range(self.retries + 1):
             try:
@@ -371,7 +371,7 @@ class ReplayBrain:
 
 def open_brain(name: str, reflexes: dict[str, Reflex] | None = None, skill: str = "",
                home: Path | None = None) -> Brain:
-    home = home or Path(os.environ.get("JEVBRAIN_HOME", "~/.jevbrain")).expanduser()
+    home = home or Path(os.environ.get("JEVMIND_HOME", "~/.jevmind")).expanduser()
     if name == "local":
         return LocalBrain(reflexes, skill, Calibration.load(home / "calibration.json"))
     if name == "jev":

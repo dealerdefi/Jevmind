@@ -1,7 +1,7 @@
 """
 The record: every decision, before anyone knows how it went.
 
-`~/.jevbrain/ledger.jsonl` — append-only, one JSON object per line, each hashed
+`~/.jevmind/ledger.jsonl` — append-only, one JSON object per line, each hashed
 over the one before it:
 
     hash_n = sha256( seq | at | kind | body | hash_{n-1} )
@@ -12,7 +12,7 @@ over the one before it:
 
 An outcome never edits a decision. It is a second line that points at the
 first. Change one confidence after the fact and every hash after it stops
-matching — `jevbrain doctor` says where.
+matching — `jevmind doctor` says where.
 
 Tamper-evident, not tamper-proof: whoever holds the file can rewrite all of it.
 What it catches is the single quiet edit, which is the one that happens.
@@ -33,7 +33,7 @@ KINDS = ("decision", "outcome", "note")
 
 
 def home() -> Path:
-    return Path(os.environ.get("JEVBRAIN_HOME", "~/.jevbrain")).expanduser()
+    return Path(os.environ.get("JEVMIND_HOME", "~/.jevmind")).expanduser()
 
 
 def now() -> str:

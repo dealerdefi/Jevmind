@@ -6,7 +6,7 @@ worth taking next, and keep going until the brain says the answer is here.
 The graph is any folder of markdown with `[[wikilinks]]` — an Obsidian vault,
 a Zettelkasten, a docs site.
 
-    jevbrain walk "how do refresh tokens rotate" --vault ~/notes --start index
+    jevmind walk "how do refresh tokens rotate" --vault ~/notes --start index
 
 Each step is one batch: a Choice over the outgoing links (plus `stop`), and a
 Noul — *the answer is on this page*. The walk never revisits a page, never

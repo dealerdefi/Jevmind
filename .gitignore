@@ -3,5 +3,5 @@ __pycache__/
 build/
 dist/
 .venv/
-.jevbrain/
+.jevmind/
 review.html

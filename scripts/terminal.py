@@ -5,7 +5,7 @@ Photograph the terminal — the real one.
     python scripts/terminal.py            write assets/terminal-*.png
     python scripts/terminal.py --text     print the screens instead
 
-A pseudo terminal is opened, `jevbrain` is run inside it, and the bytes that come
+A pseudo terminal is opened, `jevmind` is run inside it, and the bytes that come
 back are replayed through a terminal emulator — colours and all — to get the
 exact grid of characters a person would see. That grid is then drawn as a
 picture.
@@ -14,7 +14,7 @@ Nothing here is a mock-up. If the banner is misaligned in the README, it is
 misaligned in your shell.
 
 Development-only: needs `pyte` to read the terminal and Playwright's Chromium to
-draw. jevbrain itself needs neither.
+draw. jevmind itself needs neither.
 """
 
 from __future__ import annotations
@@ -34,7 +34,7 @@ ROOT = Path(__file__).resolve().parent.parent
 COLS, LINES = 100, 62
 
 #: (filename, argv, what it shows)
-S = "src/jevbrain/samples"
+S = "src/jevmind/samples"
 SHOTS = [
     ("terminal-doctor", ["doctor"], "the mark, the brains, the skills"),
     ("terminal-top", ["top", "--last", "10"], "the dashboard"),
@@ -60,12 +60,12 @@ def capture(argv: list[str], home: Path) -> list[Row]:
 
     import pyte
 
-    env = dict(os.environ, TERM="xterm-256color", JEVBRAIN_HOME=str(home),
+    env = dict(os.environ, TERM="xterm-256color", JEVMIND_HOME=str(home),
                PYTHONPATH=str(ROOT / "src"), LINES=str(LINES), COLUMNS=str(COLS))
     pid, fd = pty.fork()
     if pid == 0:
         os.chdir(ROOT)
-        os.execvpe(sys.executable, [sys.executable, "-m", "jevbrain", *argv], env)
+        os.execvpe(sys.executable, [sys.executable, "-m", "jevmind", *argv], env)
 
     screen = pyte.Screen(COLS, LINES)
     stream = pyte.Stream(screen)
@@ -127,7 +127,7 @@ PAGE = """<!doctype html><meta charset="utf-8"><style>
 </style>
 <div class="term">
   <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i>
-    <span class="t">jevbrain</span></div>
+    <span class="t">jevmind</span></div>
   <pre>{body}</pre>
 </div>
 """
@@ -174,9 +174,9 @@ def main() -> int:
     ap.add_argument("--text", action="store_true", help="print the screens, draw nothing")
     args = ap.parse_args()
 
-    home = Path(tempfile.mkdtemp(prefix="jevbrain-shot-"))
+    home = Path(tempfile.mkdtemp(prefix="jevmind-shot-"))
     try:
-        subprocess.run([sys.executable, "-m", "jevbrain", "demo", "--home", str(home)],
+        subprocess.run([sys.executable, "-m", "jevmind", "demo", "--home", str(home)],
                        check=True, capture_output=True,
                        env=dict(os.environ, PYTHONPATH=str(ROOT / "src")))
         if args.text:

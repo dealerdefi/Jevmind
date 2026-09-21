@@ -9,8 +9,8 @@ belong on the smallest one. One batch, three answers:
     tier         Choice   fast · standard · frontier
     effort       Choice   low · medium · high reasoning
 
-    jevbrain route "rename getUser to fetchUser across the web app"
-    jevbrain route --json "why does the websocket drop under load"   # for scripts
+    jevmind route "rename getUser to fetchUser across the web app"
+    jevmind route --json "why does the websocket drop under load"   # for scripts
 
 The output is a routing decision, not a model name: map tiers to whatever your
 stack calls them with `--map fast=haiku,standard=sonnet,frontier=opus`.
