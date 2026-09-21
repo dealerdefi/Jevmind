@@ -16,7 +16,7 @@ import unittest
 import urllib.error
 from pathlib import Path
 
-from jevmind.brain import (BrainError, Calibration, JevBrain, LocalBrain, ReplayBrain, Recorder, Tape,
+from jevmind.brain import (BrainError, Calibration, TypeSafeBrain, LocalBrain, ReplayBrain, Recorder, Tape,
                             fingerprint, parse_answers)
 from jevmind.grade import brier, fit_platt, learn, stats
 from jevmind.ledger import Ledger, verify
@@ -89,7 +89,7 @@ class ParsingJev(unittest.TestCase):
             parse_answers({"oops": 1}, Q)
 
 
-class TheJevBrainOverHttp(unittest.TestCase):
+class TheJevModelOverHttp(unittest.TestCase):
     def test_it_posts_the_system_one_request(self):
         seen = {}
 
@@ -98,7 +98,7 @@ class TheJevBrainOverHttp(unittest.TestCase):
             seen["body"] = json.loads(req.data)
             return json.dumps(ParsingJev().good()).encode()
 
-        t = JevBrain(key="k-123", url="https://example.invalid/v1/systemone", transport=transport).think("s", Q)
+        t = TypeSafeBrain(key="k-123", url="https://example.invalid/v1/systemone", transport=transport).think("s", Q)
         self.assertEqual(seen["url"], "https://example.invalid/v1/systemone")
         self.assertEqual(seen["auth"], "Bearer k-123")
         self.assertEqual(seen["body"]["model"], "jev-latest")
@@ -116,7 +116,7 @@ class TheJevBrainOverHttp(unittest.TestCase):
                 raise urllib.error.HTTPError(req.full_url, 429, "slow down", {}, io.BytesIO(b""))
             return json.dumps(ParsingJev().good()).encode()
 
-        JevBrain(key="k", transport=transport, sleep=lambda s: None).think("s", Q)
+        TypeSafeBrain(key="k", transport=transport, sleep=lambda s: None).think("s", Q)
         self.assertEqual(len(calls), 2)
 
     def test_an_error_never_echoes_the_body_or_the_key(self):
@@ -124,16 +124,16 @@ class TheJevBrainOverHttp(unittest.TestCase):
             raise urllib.error.HTTPError(req.full_url, 401, "no", {}, io.BytesIO(b"your key k-SECRET is bad"))
 
         with self.assertRaises(BrainError) as cm:
-            JevBrain(key="k-SECRET", transport=transport, retries=0).think("s", Q)
+            TypeSafeBrain(key="k-SECRET", transport=transport, retries=0).think("s", Q)
         self.assertNotIn("SECRET", str(cm.exception))
 
-    def test_no_key_means_no_jev_brain(self):
+    def test_no_key_means_no_jev(self):
         import os
         old = os.environ.pop("TYPESAFE_API_KEY", None)
         os.environ["TYPESAFE_CREDENTIALS_FILE"] = "/nonexistent"
         try:
             with self.assertRaises(BrainError):
-                JevBrain()
+                TypeSafeBrain()
         finally:
             os.environ.pop("TYPESAFE_CREDENTIALS_FILE", None)
             if old:

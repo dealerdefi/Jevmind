@@ -266,7 +266,7 @@ def _urlopen(req: urllib.request.Request, timeout: float) -> bytes:
         return r.read()
 
 
-class JevBrain:
+class TypeSafeBrain:
     name = "jev"
 
     def __init__(self, key: str | None = None, url: str | None = None, model: str = DEFAULT_MODEL,
@@ -375,7 +375,7 @@ def open_brain(name: str, reflexes: dict[str, Reflex] | None = None, skill: str 
     if name == "local":
         return LocalBrain(reflexes, skill, Calibration.load(home / "calibration.json"))
     if name == "jev":
-        return Recorder(JevBrain(), Tape(home / "tape.jsonl"))
+        return Recorder(TypeSafeBrain(), Tape(home / "tape.jsonl"))
     if name == "replay":
         return ReplayBrain(Tape(home / "tape.jsonl"))
     raise BrainError(f"unknown brain {name!r}: local, jev or replay")

@@ -1,6 +1,6 @@
 # Talking to Jev
 
-`src/jevmind/brain.py` → `JevBrain`. Standard library only (`urllib`).
+`src/jevmind/brain.py` → `TypeSafeBrain`. Standard library only (`urllib`).
 
 ## Where the format comes from
 
