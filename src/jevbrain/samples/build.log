@@ -1,0 +1,46 @@
+Collecting requests>=2.31
+  Using cached requests-2.32.3-py3-none-any.whl (64 kB)
+Collecting urllib3<3,>=1.21.1
+  Using cached urllib3-2.2.3-py3-none-any.whl (126 kB)
+Requirement already satisfied: idna<4,>=2.5 in ./venv/lib/python3.12/site-packages
+Requirement already satisfied: certifi>=2017.4.17 in ./venv/lib/python3.12/site-packages
+Installing collected packages: urllib3, requests
+Successfully installed requests-2.32.3 urllib3-2.2.3
+
+============================= test session starts ==============================
+platform linux -- Python 3.12.4, pytest-8.3.2, pluggy-1.5.0
+rootdir: /work/api
+collected 48 items
+
+tests/test_billing.py ........                                           [ 16%]
+tests/test_users.py ..........                                           [ 37%]
+tests/test_search.py ............                                        [ 62%]
+tests/test_auth.py ....F.....                                            [ 83%]
+tests/test_health.py ........                                            [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_refresh_token_rotates_on_use ________________________
+
+    def test_refresh_token_rotates_on_use(client, user):
+        first = client.post("/auth/refresh", json={"token": user.refresh_token})
+        second = client.post("/auth/refresh", json={"token": user.refresh_token})
+>       assert second.status_code == 401
+E       assert 200 == 401
+E        +  where 200 = <Response [200]>.status_code
+
+tests/test_auth.py:88: AssertionError
+
+----------------------------- Captured log call --------------------------------
+INFO     api.auth:tokens.py:41 issued refresh token for user 7
+INFO     api.auth:tokens.py:41 issued refresh token for user 7
+WARNING  api.auth:tokens.py:57 refresh token reuse not checked: ROTATE_REFRESH=false
+
+=============================== warnings summary ===============================
+venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py:2193
+  SAWarning: relationship 'User.sessions' will copy column users.id to column
+  sessions.user_id, which conflicts with relationship(s): 'Session.user'
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_auth.py::test_refresh_token_rotates_on_use - assert 200 == 401
+=================== 1 failed, 47 passed, 1 warning in 3.12s ====================

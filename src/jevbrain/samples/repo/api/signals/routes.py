@@ -1,0 +1,3 @@
+router = Router("/signals")
+@router.get("/")
+def list_signals(): ...

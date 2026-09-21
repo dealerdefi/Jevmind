@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jevbrain"
+version = "0.1.0"
+description = "One brain, many hands: typed decisions (Choice, Score, Noul), a gate in code, and every answer on an append-only ledger — offline, or on TypeSafe's Jev."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "dealerdefi" }]
+keywords = ["jev", "typesafe", "system-one", "ai-agents", "decision-engine", "mcp", "claude-code", "context-compaction", "code-review"]
+dependencies = []
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Environment :: Console",
+  "Topic :: Software Development",
+]
+
+[project.urls]
+Homepage = "https://github.com/dealerdefi/jevbrain"
+Source = "https://github.com/dealerdefi/jevbrain"
+
+[project.scripts]
+jevbrain = "jevbrain.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+jevbrain = ["py.typed", "samples/**/*", "samples/*"]

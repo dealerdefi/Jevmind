@@ -1,0 +1,17 @@
+{"prompt": "Explain what a Brier score measures and why 0.25 is the score of a coin.", "completion": "It is the mean squared error between a stated probability and the 0/1 outcome; always saying 0.5 scores exactly 0.25."}
+{"prompt": "Write a Python function that returns the median of a list without sorting it in place.", "completion": "Use quickselect on a copy: pick a pivot, partition, and recurse into the side that holds the middle index."}
+{"prompt": "Summarise the difference between a mutex and a semaphore in two sentences.", "completion": "A mutex lets one holder in at a time and must be released by that holder. A semaphore counts permits and any thread may release one."}
+{"prompt": "What does HTTP status 429 mean, and how should a client back off?", "completion": "Too Many Requests. Respect Retry-After if present, otherwise back off exponentially with jitter."}
+{"prompt": "Translate 'the ledger is append-only' into French.", "completion": "Le registre est en ajout seul."}
+{"prompt": "Why should a refresh token be rotated on every use?", "completion": "So a stolen token can be used at most once, and its reuse can be detected and every session revoked."}
+{"prompt": "Give three ways to detect a flaky test in CI.", "completion": "Re-run failures in isolation, track pass rates over time per test, and randomise test order to expose hidden coupling."}
+{"prompt": "Describe first-in-first-out cost basis with a worked example.", "completion": "Buy 10 at 1 then 10 at 2; selling 15 matches the 10 at 1 first, then 5 at 2, for a cost of 20."}
+{"prompt": "Explain what a Brier score measures and why 0.25 is the score of a coin.", "completion": "It is the mean squared error between a stated probability and the 0/1 outcome; always saying 0.5 scores exactly 0.25."}
+{"prompt": "Write a Python function that returns the median of a list without sorting it in place.", "completion": "Use quickselect on a copy: pick a pivot, partition, and recurse into the side that holds the middle index. "}
+{"prompt": "test", "completion": "asdf"}
+{"prompt": "Contact support", "completion": "Email me at jane.doe@example.com or call +1 415 555 0132 anytime."}
+{"prompt": "Deploy script", "completion": "export OPENAI_API_KEY=sk-live4f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d then run deploy.sh"}
+{"prompt": "Explain recursion", "completion": "Recursion is when a function calls itself, and"}
+{"prompt": "List primes", "completion": "2 3 5 7 11\n2 3 5 7 11\n2 3 5 7 11\n2 3 5 7 11"}
+{"text": "lorem ipsum"}
+{not json

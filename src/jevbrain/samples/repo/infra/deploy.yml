@@ -1,0 +1,3 @@
+steps:
+  - run: ./build.sh
+  - run: ./deploy.sh --prod
