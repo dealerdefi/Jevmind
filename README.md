@@ -54,12 +54,14 @@ jevmind top       # the dashboard, any time
 ```
 
 <div align="center">
-<img src="assets/terminal-top.png" alt="jevmind top" width="860">
+<a href="assets/motion/jevmind-top.mp4"><img src="assets/motion/jevmind-top.gif" alt="jevmind top — every decision, every skill" width="100%"></a>
 </div>
 
-<div align="center"><sub>A real capture of <code>jevmind top</code> after <code>jevmind demo</code>, taken by
-<code>scripts/terminal.py</code> in a pseudo terminal. 2,911 decisions from nine skills, every one of them a
-line in the ledger.</sub></div>
+<div align="center"><sub><b>jevmind top</b>, as motion design. It is built on the real dashboard's layout, but it is
+an animation, not a screen recording: the per-skill counts and the frames marked <code>brain jev</code> /
+<code>replay</code> are illustrative, and this repository has not been run against the live Jev API.
+The real output is in the <a href="#real-terminal-captures">captures below</a>, and
+<code>jevmind demo</code> reproduces it. <a href="assets/motion/jevmind-top.mp4">Full-quality MP4</a>.</sub></div>
 
 ---
 
@@ -143,9 +145,6 @@ brain there; otherwise it throws it away and says so. The local brain applies wh
 was kept from the next call on, and records the raw answer beside the calibrated one
 so the next `learn` replaces the calibration instead of stacking on it.
 
-<div align="center">
-<img src="assets/terminal-learn.png" alt="jevmind learn" width="860">
-</div>
 
 <sub>On the arena, the `danger` reflex says 0.30 whenever a hazard is near — and a
 near hazard it sees coming has never once killed it. `learn` finds that on the held-out
@@ -185,7 +184,6 @@ The local brain scores every option by the best BM25 match *beneath* it across t
 whole repository, and weights tests and docs below the code they describe. *After
 [Blink](https://github.com/ellipsis-dev/blink).*
 
-<div align="center"><img src="assets/terminal-navigate.png" alt="jevmind navigate" width="860"></div>
 
 ### `review` — which hunks of a diff need a human
 
@@ -200,7 +198,6 @@ removed checks, removed error handling, migrations — and writes a local HTML
 dashboard sorted by risk. Exit code 2 when anything needs a human, for CI. *After
 [jev-review](https://github.com/devagrawal09/jev-review).*
 
-<div align="center"><img src="assets/terminal-review.png" alt="jevmind review" width="860"></div>
 
 ### `route` — how much model a task deserves
 
@@ -225,7 +222,6 @@ moved it: tests that failed, no tests that ran, a stub or TODO added, a `skip` o
 contradicts. TRUST · DOUBT · REJECT, exit 0 · 1 · 2. *After
 [Canny](https://github.com/qkal/Canny).*
 
-<div align="center"><img src="assets/terminal-canny.png" alt="jevmind canny" width="860"></div>
 
 ### `curate` — which records deserve to be trained on
 
@@ -251,7 +247,6 @@ docs site. At each page: a Choice over its links (plus `stop`) and a Noul — *t
 is on this page*. Never revisits, never invents a link, stops when it is sure. *After
 [neo4jev](https://github.com/jexp/neo4jev).*
 
-<div align="center"><img src="assets/terminal-walk.png" alt="jevmind walk" width="860"></div>
 
 ### `guard` — should this command run
 
@@ -266,7 +261,6 @@ what was asked for. Unsure is never allow. *After
 [semdecide](https://github.com/sharziki/semdecide)'s reflex guard and
 [jev-mcp](https://github.com/jkudish/jev-mcp)'s screening tools.*
 
-<div align="center"><img src="assets/terminal-guard.png" alt="jevmind guard" width="860"></div>
 
 ### `arena` — a control loop you can watch
 
@@ -274,7 +268,13 @@ what was asked for. Unsure is never allow. *After
 jevmind arena --watch
 ```
 
-<div align="center"><img src="assets/arena.gif" alt="jevmind arena: a runner crossing pits, pipes and walkers, one brain decision per tick" width="860"></div>
+<div align="center"><a href="assets/motion/jevmind-arena.mp4"><img src="assets/motion/jevmind-arena.gif" alt="jevmind arena — twelve runs, a decision stream, labels landing as they arrive" width="100%"></a></div>
+
+<div align="center"><sub><b>jevmind arena --watch --runs 12</b>, as motion design: the run, the decision stream, the
+labels and the ledger tail side by side. Its counters are drawn for the film and differ from a real run
+(a real run of seeds 1–12 finishes 12 of 12 in 2,869 decisions, Brier 0.025 on <code>danger</code>). A real
+recording, drawn frame by frame from the game itself, is in the <a href="#real-terminal-captures">captures below</a>.
+<a href="assets/motion/jevmind-arena.mp4">Full-quality MP4</a>.</sub></div>
 
 A side-scroller — pits, pipes, walkers. No pixels: every tick the brain reads
 structured state (what is ahead, how far, how big) and answers `move` (run · jump ·
@@ -300,6 +300,32 @@ grep -h ERROR *.log | jevmind filter "a database timeout" --scores
 *After [SemDecide](https://github.com/sharziki/semdecide).* These are where the local
 brain is weakest — an open question has no reflex, only the lexical floor, and it will
 tell you so with a confidence near zero. That is the honest place to use `--brain jev`.
+
+---
+
+## Real terminal captures
+
+Everything above that is not marked as motion design is text. These are the real thing: `scripts/terminal.py`
+opens a pseudo terminal, runs the command inside it after `jevmind demo`, and photographs what comes back;
+`scripts/arena_gif.py` draws one real arena run frame by frame from the game's own state.
+
+<details>
+<summary><b>Open the captures</b> — top · arena · navigate · review · canny · walk · guard · learn</summary>
+
+<br>
+
+<div align="center">
+<img src="assets/terminal-top.png" alt="jevmind top" width="860"><br><br>
+<img src="assets/arena.gif" alt="jevmind arena, one real run" width="860"><br><br>
+<img src="assets/terminal-navigate.png" alt="jevmind navigate" width="860"><br><br>
+<img src="assets/terminal-review.png" alt="jevmind review" width="860"><br><br>
+<img src="assets/terminal-canny.png" alt="jevmind canny" width="860"><br><br>
+<img src="assets/terminal-walk.png" alt="jevmind walk" width="860"><br><br>
+<img src="assets/terminal-guard.png" alt="jevmind guard" width="860"><br><br>
+<img src="assets/terminal-learn.png" alt="jevmind learn" width="860">
+</div>
+
+</details>
 
 ---
 
